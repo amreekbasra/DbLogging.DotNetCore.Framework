@@ -27,9 +27,6 @@ namespace Logger.DbLog
 
             _settings = settings;
             _writer = writer;
-            // LogRecordCache.SetCapacity(_settings.BulkWriteCacheSize);
-
-           // _settings.ChangeToken?.RegisterChangeCallback(OnConfigurationReload, null);
         }
 
         public ILogger CreateLogger(string categoryName)
