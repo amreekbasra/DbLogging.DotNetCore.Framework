@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logger.DbLog", "Logger.DbLo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Global.Logger.Tests", "Global.Logger.Tests\Global.Logger.Tests.csproj", "{E7695345-072A-4F4F-ADD0-CB555933579B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleEngine.ExpressionTree", "RuleEngine.ExpressionTree\RuleEngine.ExpressionTree.csproj", "{DAF6A573-80F5-4BC7-9232-73F214A7C456}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuleEngine.ExpressionTree", "RuleEngine.ExpressionTree\RuleEngine.ExpressionTree.csproj", "{DAF6A573-80F5-4BC7-9232-73F214A7C456}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Global.Utils", "Global.Utils\Global.Utils.csproj", "{CFEEC815-F348-4DAE-926A-58C6D563335E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{DAF6A573-80F5-4BC7-9232-73F214A7C456}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAF6A573-80F5-4BC7-9232-73F214A7C456}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAF6A573-80F5-4BC7-9232-73F214A7C456}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFEEC815-F348-4DAE-926A-58C6D563335E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFEEC815-F348-4DAE-926A-58C6D563335E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFEEC815-F348-4DAE-926A-58C6D563335E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFEEC815-F348-4DAE-926A-58C6D563335E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
