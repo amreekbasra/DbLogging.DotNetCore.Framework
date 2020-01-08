@@ -108,5 +108,13 @@ namespace Logger.DbLog
 
             return scope.ToString();
         }
+
+        public class LoggerScope:IDisposable
+        {
+            public void Dispose()
+            {
+
+            }
+        }
     }
 }

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
 namespace Global.Utils.common
 {
-    public class Utils
+    public static class Utils
     {        
         public static bool ObjectPropertiesEmpty<T>(T obj)
         {
@@ -36,5 +37,25 @@ namespace Global.Utils.common
                 return null;
             }
         }
+
+        public static void PopulateConfigurations<T>(this T myType, IConfiguration configuration) where T : class
+        {
+            PropertyInfo[] properties = typeof(T).GetProperties();
+            foreach (var item in properties)
+            {
+                //var type = item.PropertyType;
+                try
+                {
+                    item.SetValue(myType, configuration[item.Name], null);
+                }
+                catch 
+                {
+                }
+            }
+        }
+        //public static T Get<T>(this IConfiguration configuration, string key)
+        //{
+        //   // return configuration.GetSection(key).GetChildren<T>();
+        //}
     }
 }
