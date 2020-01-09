@@ -9,8 +9,4 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Logger\" />
-  </ItemGroup>
-
 </Project>
