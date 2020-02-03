@@ -18,7 +18,7 @@ namespace Logging.Framework.Logger
         public LoggerSettings Settings { get; }
         public IAsyncLoggerProcessor LoggerProcessor { get; }
 
-        public Logger( string name, IServiceProvider serviceProvider, LoggerSettings loggerSettings, IAsyncLoggerProcessor asyncLoggerProcessor)
+        public CustomLogger( string name, IServiceProvider serviceProvider, LoggerSettings loggerSettings, IAsyncLoggerProcessor asyncLoggerProcessor)
         {
             Name = name;
             ServiceProvider = serviceProvider;
@@ -34,7 +34,7 @@ namespace Logging.Framework.Logger
         {
             if (Settings!= null)
             {
-               // return GetFilter(Name, Settings).Invoke(Name, logLevel);
+              return GetFilter(Name, Settings).Invoke(Name, logLevel);
             }
             return Filter == null || Filter(Name, logLevel);
         }
