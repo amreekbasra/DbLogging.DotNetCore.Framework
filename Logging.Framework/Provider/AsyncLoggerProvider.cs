@@ -1,4 +1,5 @@
 ﻿using Logging.Framework.Interfaces;
+using Logging.Framework.Logger;
 using Logging.Framework.Models;
 using Microsoft.Extensions.Logging;
 using System;
@@ -22,7 +23,7 @@ namespace Logging.Framework.Provider
         }
         public virtual ILogger CreateLogger(string categoryName)
         {
-            throw new NotImplementedException();
+            return new CustomLogger(categoryName, _serviceProvider, _loggerSettings, _loggerProcessor);
         }
 
         public virtual void Dispose()
@@ -32,7 +33,7 @@ namespace Logging.Framework.Provider
 
         public Task WaitToComplete()
         {
-            throw new NotImplementedException();
+            return _loggerProcessor.WaitToComplete();
         }
     }
 }
