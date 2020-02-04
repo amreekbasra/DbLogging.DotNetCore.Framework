@@ -8,8 +8,7 @@ namespace Global.Clients
 {
     public class GProxy: BaseProxy
     {
-        private readonly ILogger<GProxy> logger;
-        private readonly string ComplianceScope;       
+        private readonly ILogger<GProxy> logger;              
         public GProxy(HttpClient httpClient, ILogger<GProxy> logger, IHttpContextAccessor httpContextAccessor): base(httpClient, httpContextAccessor)
         {
             this.logger = logger;            

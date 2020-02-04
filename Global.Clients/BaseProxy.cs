@@ -16,7 +16,7 @@ namespace Global.Clients
            
             eventId = httpContextAccessor.HttpContext.Items["EventId"]?.ToString();
         }
-        protected async Task AddHeaders(string scope)
+        protected async Task AddHeaders()
         {
             client.DefaultRequestHeaders.Clear();
            
