@@ -12,6 +12,11 @@ namespace Logging.Framework.Models
         private int batchSize;
         private int backGroundQueueSize;
         private TimeSpan flushPeriod;
+        private int fileSizeLimit;
+        private int fileCountLimit;
+        private string fileName;
+        private string logDirectory;
+
         //private IConfiguration configuration;     
 
         public string Application { get; set; }
@@ -29,7 +34,21 @@ namespace Logging.Framework.Models
             ConnectionString = connectionStr?["Logging"];
             Application = config["Application"];
             bool.TryParse(config["EnableSync"], out bool enableSync);
+
+            fileName = config["FileName"];
+            bool.TryParse(config["IncludeScope"], out var includeScope);
+           // bool.TryParse(config["EnableSync"], out var enableAsync);
+            int.TryParse(config["BackGroundQueueSize"], out backGroundQueueSize);
+            int.TryParse(config["BatchSize"], out batchSize);
+            int.TryParse(config["FileSizeLimit"], out fileSizeLimit);
+            int.TryParse(config["FileCountLimit"], out fileCountLimit);
+
+            logDirectory = config["LogDirectory"];
+           // ConnectionString = config["LoggerConnection"];
             EnableSync = enableSync;
+            IncludeScope = includeScope;
+            FlushPeriod = TimeSpan.TryParse(config["FileCountLimit"], out var timespan) ? timespan : new TimeSpan(0);
+
         }
 
         public LoggerSettings Settings(Action<LoggerSettings> config)
