@@ -48,8 +48,14 @@ namespace Logging.Framework.UI
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            
-           
+
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //       name: "default",
+            //       template: "api/{controller}/{action}=Get",
+            //       defaults: new { controller = "Contributions" });
+            //});
 
             app.UseEndpoints(endpoints =>
             {
