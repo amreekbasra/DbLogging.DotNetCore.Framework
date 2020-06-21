@@ -1,11 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Global.Clients\Global.Clients.csproj" />
     <ProjectReference Include="..\Logger.DbLog\Logger.DbLog.csproj" />
     <ProjectReference Include="..\Logging.Framework\Logging.Framework.csproj" />
   </ItemGroup>

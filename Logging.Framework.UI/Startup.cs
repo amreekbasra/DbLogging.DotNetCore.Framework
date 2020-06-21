@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Global.Clients;
 using Logger.DbLog;
 using Logger.DbLog.extensions;
 using Logging.Framework.Extensions;
@@ -32,6 +33,7 @@ namespace Logging.Framework.UI
             services.AddControllers();
            services.AddDatabaseLogger(Configuration.GetSection("Logging"), Configuration.GetSection("ConnectionStrings"));
             services.AddFileLogger(Configuration.GetSection("Logging"));
+            services.AddHttpClient<IMovieDetailsClient, MovieDetailsClient>();
             //services.Configure()
         }
 

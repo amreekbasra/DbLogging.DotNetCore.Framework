@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Global.Clients;
 
 namespace Logging.Framework.UI.Controllers
 {
@@ -11,16 +12,19 @@ namespace Logging.Framework.UI.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+      
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IMovieDetailsClient _movieDetailsClient;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IMovieDetailsClient movieDetailsClient)
         {
             _logger = logger;
+           _movieDetailsClient = movieDetailsClient;  
         }
 
         [HttpGet]
@@ -38,5 +42,14 @@ namespace Logging.Framework.UI.Controllers
             })
             .ToArray();
         }
+
+        [HttpPost]
+        [Route("Submit/{title}")]
+        public async Task<IActionResult> Submit(string title)
+        {
+            var movieDetail = await _movieDetailsClient.GetMovieDetailsAsync(title);
+            return Ok(movieDetail);
+        }
+
     }
 }
