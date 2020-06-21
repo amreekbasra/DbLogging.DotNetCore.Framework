@@ -13,8 +13,8 @@ namespace Logging.Framework.Provider
         Task WaitToComplete();
     }
 
-    //public interface IAsyncLoggerProcessor<TLoggerProvider>: IAsyncLoggerProcessor where TLoggerProvider: ILoggerProvider
-    //{
+    public interface IAsyncLoggerProcessor<TLoggerProvider> : IAsyncLoggerProcessor where TLoggerProvider : ILoggerProvider
+    {
 
-    //}
+    }
 }

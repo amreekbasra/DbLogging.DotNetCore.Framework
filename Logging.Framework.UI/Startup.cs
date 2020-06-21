@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Logger.DbLog;
 using Logger.DbLog.extensions;
+using Logging.Framework.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,20 +30,23 @@ namespace Logging.Framework.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+           services.AddDatabaseLogger(Configuration.GetSection("Logging"), Configuration.GetSection("ConnectionStrings"));
+            services.AddFileLogger(Configuration.GetSection("Logging"));
             //services.Configure()
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             app.UseWhen(context => !SkipMiddleware(context), appBuilder =>
             {
-                var logWriter = new LogWriter(Configuration.GetConnectionString("Logging"));
-                loggerFactory.AddDbLogger(Configuration.GetSection("Logging"), logWriter);
+                //var logWriter = new LogWriter(Configuration.GetConnectionString("Logging"));
+                //loggerFactory.AddDbLogger(Configuration.GetSection("Logging"), logWriter);
                 // app.UseAuthorization();
             });
             app.UseHttpsRedirection();

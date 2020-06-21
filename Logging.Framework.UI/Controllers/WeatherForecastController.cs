@@ -28,6 +28,8 @@ namespace Logging.Framework.UI.Controllers
         {
             var rng = new Random();
             _logger.LogWarning("Error may occur after this");
+            _logger.LogInformation("Some info");
+            _logger.LogError("Error");
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),

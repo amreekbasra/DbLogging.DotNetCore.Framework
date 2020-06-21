@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,10 +14,10 @@ namespace Logging.Framework.Logger
     {
         public Func<string, LogLevel, bool> Filter => Settings.Filter;
 
-        public string Name { get; }
-        public IServiceProvider ServiceProvider { get; }
-        public LoggerSettings Settings { get; }
-        public IAsyncLoggerProcessor LoggerProcessor { get; }
+        protected readonly string Name;
+        protected IServiceProvider ServiceProvider;
+        protected LoggerSettings Settings;
+        protected readonly IAsyncLoggerProcessor LoggerProcessor;
 
         public CustomLogger( string name, IServiceProvider serviceProvider, LoggerSettings loggerSettings, IAsyncLoggerProcessor asyncLoggerProcessor)
         {
@@ -76,9 +77,9 @@ namespace Logging.Framework.Logger
             }
         }
 
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        public virtual void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            Task.Run(() => LogAsync(logLevel, eventId, state, exception, formatter));
+            LogAsync(logLevel, eventId, state, exception, formatter).Wait();
         }
 
         protected virtual async Task LogAsync<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
@@ -110,8 +111,19 @@ namespace Logging.Framework.Logger
             };
             if (httpContext != null)
             {
-                log.Browser = httpContext.Request.Headers["User-Agent"];
-                log.EventId = log.EventId == "0" ? httpContext.Items["EventId"]?.ToString() ?? "" : log.EventId;
+                try
+                {
+                    log.Browser = httpContext.Request.Headers["User-Agent"];
+                    log.EventId = log.EventId == "0" ? httpContext.Items["EventId"]?.ToString() ?? "" : log.EventId;
+                    log.HostAddress = httpContext.Connection.LocalIpAddress?.MapToIPv4()?.ToString();
+                    log.RemoteHostAddress = httpContext.Connection.RemoteIpAddress?.MapToIPv4()?.ToString();
+                }
+                catch (Exception ex)
+                {
+                    var error = $"[{nameof(CustomLogger)}] failure parsing User-Agent headers: {ex}";                   
+                    Console.Error.WriteLine(error);
+                }
+                
             }
             return log;
         }

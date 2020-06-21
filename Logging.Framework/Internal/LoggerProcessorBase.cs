@@ -11,12 +11,12 @@ namespace Logging.Framework.Internal
 {
     public abstract class LoggerProcessorBase : IAsyncLoggerProcessor
     {
-        private readonly LoggerSettings settings;
+        public LoggerSettings Settings { get; }
         private readonly Task<Task> ProcessingTask;
         public BlockingCollection<LogData> MessageQueue { get ; set; }
         public LoggerProcessorBase(LoggerSettings loggerSettings, BlockingCollection<LogData> messageQueue)
         {
-            settings = loggerSettings;
+            Settings = loggerSettings;
             MessageQueue = messageQueue;
             ProcessingTask = Task.Factory.StartNew(ProcessLogQueue, TaskCreationOptions.LongRunning);
         }
@@ -33,11 +33,11 @@ namespace Logging.Framework.Internal
             await WriteLog(logData);
         }
         public abstract Task WriteLog(LogData logData);
-        public abstract Task ProcessLogQueue();
+        protected abstract Task ProcessLogQueue();
 
-        public void Dispose()
+        public virtual void Dispose()
         {
-            WaitToComplete().Wait(1000);
+            WaitToComplete().Wait(1500);
         }
         public virtual Task WaitToComplete()
         {
